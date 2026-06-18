@@ -1,25 +1,28 @@
-{% set name = "zcollection" %}
-{% set version = "2026.6.0" %}
-{% set python_min = "3.11" %}
+schema_version: 1
+
+context:
+  name: zcollection
+  version: "2026.6.0"
+  python_min: "3.11"
 
 package:
-  name: {{ name|lower }}
-  version: {{ version }}
+  name: ${{ name|lower }}
+  version: ${{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.tar.gz
   sha256: a977f72fc7596aeea3da3988c82b38f81eb154862365499000acb71b003a53dc
 
 build:
   noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
+  script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
 
 requirements:
   # All dependencies are required until we change the way the
   # version number and file are generated.
   host:
-    - python {{ python_min }}
+    - python ${{ python_min }}
     - setuptools >=45
     - pip
   run:
@@ -30,21 +33,26 @@ requirements:
     - numcodecs <0.16
     - numpy >=1.20
     - pandas
-    - python >={{ python_min }}
+    - python >=${{ python_min }}
     - xarray
     - zarr >=2.11,<3
 
-test:
-  requires:
-    - python {{ python_min }}
-    - pytest
-    - pyarrow
-    - s3fs
-  commands:
-    - pytest --pyargs zcollection
+tests:
+  - python:
+      imports:
+        - zcollection
+      pip_check: true
+  - requirements:
+      run:
+        - python ${{ python_min }}
+        - pytest
+        - pyarrow
+        - s3fs
+    script:
+      - pytest --pyargs zcollection
 
 about:
-  home: https://github.com/CNES/zcollection
+  homepage: https://github.com/CNES/zcollection
   summary: Handle a collection of Zarr groups
   description: |
     This project is a Python library manipulating data split into a collection of groups stored in Zarr format.
@@ -52,10 +60,9 @@ about:
     from new products. Possible data partitioning is: by date (hour, day, month, etc.)
     or by sequence.
   license: BSD-3-Clause
-  license_family: BSD
   license_file: LICENSE
-  doc_url: https://zcollection.readthedocs.io/en/latest/
-  dev_url: https://github.com/CNES/zcollection
+  documentation: https://zcollection.readthedocs.io/en/latest/
+  repository: https://github.com/CNES/zcollection
 
 extra:
   recipe-maintainers:
