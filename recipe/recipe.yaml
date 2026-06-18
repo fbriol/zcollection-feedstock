@@ -22,7 +22,7 @@ requirements:
   # All dependencies are required until we change the way the
   # version number and file are generated.
   host:
-    - python ${{ python_min }}
+    - python ${{ python_min }}.*
     - setuptools >=45
     - pip
   run:
@@ -44,7 +44,7 @@ tests:
       pip_check: true
   - requirements:
       run:
-        - python ${{ python_min }}
+        - python ${{ python_min }}.*
         - pytest
         - pyarrow
         - s3fs
