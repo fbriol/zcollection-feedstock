@@ -1,5 +1,5 @@
 {% set name = "zcollection" %}
-{% set version = "2024.2.0" %}
+{% set version = "2026.6.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: b2b3fa26f7d9638c75413ac6bc07d07a103bc105dddc3e37d367e8a0109c10cb
+  sha256: a977f72fc7596aeea3da3988c82b38f81eb154862365499000acb71b003a53dc
 
 build:
   noarch: python
@@ -22,15 +22,16 @@ requirements:
     - setuptools >=45
     - pip
   run:
-    - python >=3.8
-    - dask-core >=2022.8.0
+    - dask >=2022.8.0
     - distributed
     - fasteners
-    - fsspec
-    - numcodecs
+    - fsspec <=2025.12.0
+    - numcodecs <0.16
     - numpy >=1.20
+    - pandas
+    - python >=3.11
     - xarray
-    - zarr >=2.11
+    - zarr >=2.11,<3
 
 test:
   requires:
