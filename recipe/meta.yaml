@@ -18,7 +18,7 @@ requirements:
   # All dependencies are required until we change the way the
   # version number and file are generated.
   host:
-    - python >=3.8
+    - python >=3.11
     - setuptools >=45
     - pip
   run:
