@@ -1,5 +1,6 @@
 {% set name = "zcollection" %}
 {% set version = "2026.6.0" %}
+{% set python_min = "3.11" %}
 
 package:
   name: {{ name|lower }}
@@ -18,7 +19,7 @@ requirements:
   # All dependencies are required until we change the way the
   # version number and file are generated.
   host:
-    - python >=3.11
+    - python {{ python_min }}
     - setuptools >=45
     - pip
   run:
@@ -29,12 +30,13 @@ requirements:
     - numcodecs <0.16
     - numpy >=1.20
     - pandas
-    - python >=3.11
+    - python >={{ python_min }}
     - xarray
     - zarr >=2.11,<3
 
 test:
   requires:
+    - python {{ python_min }}
     - pytest
     - pyarrow
     - s3fs
