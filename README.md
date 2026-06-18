@@ -18,7 +18,6 @@ This collection allows dividing a dataset into several partitions to facilitate 
 from new products. Possible data partitioning is: by date (hour, day, month, etc.)
 or by sequence.
 
-
 Current build status
 ====================
 
